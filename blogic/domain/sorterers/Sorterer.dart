@@ -2,7 +2,7 @@ import '../entities/Lesson.dart';
 import '../entities/LessonTime.dart';
 import '../interfaces/ISorterer.dart';
 
-class SortererCabinet extends ISorterer{
+class Sorterer extends ISorterer{
 
 
 
@@ -18,8 +18,9 @@ class SortererCabinet extends ISorterer{
   @override
   bool isFree(LessonTime lessonTime, String entity, List<Lesson> listOfLessons) {
    for(Lesson lesson in listOfLessons){
-     if((lesson.teacherName == entity || lesson.cabinetName == entity || lesson.subjectName == entity || lesson.groupName == entity) && lesson.lessonTime == lessonTime.lessonTime &&
-         lesson.lessonWeek == lessonTime.lessonWeek &&lesson.lessonDay == lessonTime.lessonDay){
+     if((lesson.teacherName?.toLowerCase() == entity.toLowerCase() || lesson.cabinetName?.toLowerCase() == entity.toLowerCase() || lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
+         lesson.groupName?.toLowerCase() == entity.toLowerCase()) && lesson.lessonTime == lessonTime.lessonTime &&
+         lesson.lessonWeek.toLowerCase() == lessonTime.lessonWeek &&lesson.lessonDay.toLowerCase() == lessonTime.lessonDay.toLowerCase()){
        return false;
      }
    }
@@ -34,8 +35,9 @@ class SortererCabinet extends ISorterer{
   @override
   String? whatLessonAt(LessonTime lessonTime, String entity, List<Lesson> listOfLessons) {
     for(Lesson lesson in listOfLessons){
-      if((lesson.teacherName == entity || lesson.cabinetName == entity || lesson.subjectName == entity || lesson.groupName == entity) && lesson.lessonTime == lessonTime.lessonTime &&
-          lesson.lessonWeek == lessonTime.lessonWeek &&lesson.lessonDay == lessonTime.lessonDay){
+      if((lesson.teacherName?.toLowerCase() == entity.toLowerCase() || lesson.cabinetName?.toLowerCase() == entity.toLowerCase() || lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.groupName?.toLowerCase() == entity.toLowerCase()) && lesson.lessonTime == lessonTime.lessonTime &&
+          lesson.lessonWeek.toLowerCase() == lessonTime.lessonWeek.toLowerCase() &&lesson.lessonDay.toLowerCase() == lessonTime.lessonDay.toLowerCase()){
         return lesson.subjectName!;
       }
     }
@@ -46,8 +48,8 @@ class SortererCabinet extends ISorterer{
   List<LessonTime> whenLesson(String lessonId, String entity, List<Lesson> listOfLessons) {
     List<LessonTime> listOfLessonTimes = [];
     for(Lesson lesson in listOfLessons){
-      if((lesson.teacherName == entity || lesson.cabinetName == entity || lesson.subjectName == entity || lesson.groupName == entity) && lesson.subjectName == lessonId){
-        LessonTime lessonTime = LessonTime(lessonDay: lesson.lessonDay, lessonTime: lesson.lessonTime, lessonWeek: lesson.lessonWeek);
+      if((lesson.teacherName?.toLowerCase() == entity || lesson.cabinetName?.toLowerCase() == entity || lesson.subjectName?.toLowerCase() == entity || lesson.groupName?.toLowerCase() == entity) && lesson.subjectName?.toLowerCase() == lessonId.toLowerCase()){
+        LessonTime lessonTime = LessonTime(lessonDay: lesson.lessonDay.toLowerCase(), lessonTime: lesson.lessonTime, lessonWeek: lesson.lessonWeek.toLowerCase());
         listOfLessonTimes.add(lessonTime);
       }
     }
@@ -57,19 +59,39 @@ class SortererCabinet extends ISorterer{
   @override
   List<LessonTime> whenNoLesson(String entity, List<Lesson> listOfLessons) {
     List<LessonTime> listOfLessonTimes = [];
-    for(String lessonWeek in LessonTime.lessonWeeks){
-      for(String dayOfWeek in LessonTime.daysOfWeek){
-        for(String timePeriod in LessonTime.timePeriods){
-          listOfLessonTimes.add(LessonTime(lessonDay: dayOfWeek, lessonTime: timePeriod, lessonWeek: lessonWeek));
+    for (String lessonWeek in LessonTime.lessonWeeks) {
+      for (String dayOfWeek in LessonTime.daysOfWeek) {
+        for (String timePeriod in LessonTime.timePeriods) {
+          listOfLessonTimes.add(LessonTime(
+            lessonDay: dayOfWeek.toLowerCase(),
+            lessonTime: timePeriod,
+            lessonWeek: lessonWeek.toLowerCase(),
+          ));
         }
       }
     }
-    for(Lesson lesson in listOfLessons){
-      if((lesson.teacherName == entity || lesson.cabinetName == entity || lesson.subjectName == entity || lesson.groupName == entity)){
-        listOfLessonTimes.remove(LessonTime(lessonDay: lesson.lessonDay, lessonTime: lesson.lessonTime, lessonWeek: lesson.lessonWeek));
+
+    // Create a list of items to remove
+    List<LessonTime> itemsToRemove = [];
+
+    for (Lesson lesson in listOfLessons) {
+      if (lesson.teacherName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.cabinetName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.groupName?.toLowerCase() == entity.toLowerCase()) {
+        itemsToRemove.add(LessonTime(
+          lessonDay: lesson.lessonDay.toLowerCase(),
+          lessonTime: lesson.lessonTime,
+          lessonWeek: lesson.lessonWeek.toLowerCase(),
+        ));
       }
     }
+
+    // Remove items
+    listOfLessonTimes.removeWhere((lessonTime) => itemsToRemove.contains(lessonTime));
+
     return listOfLessonTimes;
   }
+
 
 }

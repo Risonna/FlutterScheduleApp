@@ -55,4 +55,39 @@ class Lesson implements ILesson{
     );
   }
 
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Lesson &&
+        other.lessonTime == lessonTime &&
+        other.lessonDay == lessonDay &&
+        other.lessonWeek == lessonWeek &&
+        other.cabinetId == cabinetId &&
+        other.teacherId == teacherId &&
+        other.groupId == groupId &&
+        other.subjectId == subjectId &&
+        other.id == id &&
+        other.subjectName == subjectName &&
+        other.cabinetName == cabinetName &&
+        other.groupName == groupName &&
+        other.teacherName == teacherName;
+  }
+
+  @override
+  int get hashCode {
+    return lessonTime.hashCode ^
+    lessonDay.hashCode ^
+    lessonWeek.hashCode ^
+    cabinetId.hashCode ^
+    teacherId.hashCode ^
+    groupId.hashCode ^
+    subjectId.hashCode ^
+    id.hashCode ^
+    subjectName.hashCode ^
+    cabinetName.hashCode ^
+    groupName.hashCode ^
+    teacherName.hashCode;
+  }
+
 }

@@ -7,7 +7,6 @@ class Requester implements IRequester{
   String baseUrl = "http://localhost:8080/ScheduleWebApp-1.0-SNAPSHOT/api/get-all-info";
   @override
   Future<dynamic> requestObjects(String endpoint) async {
-    print('$baseUrl/$endpoint');
     final response = await http.get(Uri.parse('$baseUrl/$endpoint'));
 
     if (response.statusCode == 200) {
