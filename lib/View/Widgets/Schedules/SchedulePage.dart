@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_scheduler/View/State/ScheduleTimeModel.dart';
+import 'package:flutter_test_scheduler/State/Models/ScheduleTimeModel.dart';
 import 'package:flutter_test_scheduler/blogic/domain/entities/LessonTime.dart';
 import 'package:flutter_test_scheduler/blogic/requests/requesters/LessonRequester.dart';
 import 'package:provider/provider.dart';
 
-import '../../blogic/domain/entities/Lesson.dart';
-import '../../blogic/domain/entities/Teacher.dart';
-import '../../blogic/domain/sorterers/Sorterer.dart';
-import '../../blogic/requests/requesters/TeacherRequester.dart';
+import '../../../blogic/domain/entities/Lesson.dart';
+import '../../../blogic/domain/entities/Teacher.dart';
+import '../../../blogic/domain/sorterers/Sorterer.dart';
+import '../../../blogic/requests/requesters/TeacherRequester.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -30,7 +30,7 @@ class _SchedulePageState extends State<SchedulePage> {
 
   Future<void> fetchTeacherList() async {
     // Fetch the list of teacher names
-    final teachers = await TeacherRequester().requestTeachers("a");
+    final teachers = await TeacherRequester().requestTeachers();
 
     List<String> teacherNames = [];
 

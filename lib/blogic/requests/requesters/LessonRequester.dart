@@ -24,19 +24,19 @@ class LessonRequester extends Requester{
     Requester requester = Requester();
     dynamic objects = await requester.requestObjects("get-all-lessons");
     if(!groupListInitialized){
-      listOfGroups = await GroupRequester().requestGroups("get-all-groups");
+      listOfGroups = await GroupRequester().requestGroups();
       groupListInitialized = true;
     }
     if(!teacherListInitialized){
-      listOfTeachers = await TeacherRequester().requestTeachers("get-all-teachers");
+      listOfTeachers = await TeacherRequester().requestTeachers();
       teacherListInitialized = true;
     }
     if(!cabinetListInitialized){
-      listOfCabinets = await CabinetRequester().requestCabinets("get-all-cabinets");
+      listOfCabinets = await CabinetRequester().requestCabinets();
       cabinetListInitialized = true;
     }
     if(!subjectListInitialized){
-      listOfSubjects = await SubjectRequester().requestSubjects("get-all-subjects");
+      listOfSubjects = await SubjectRequester().requestSubjects();
       subjectListInitialized = true;
     }
 

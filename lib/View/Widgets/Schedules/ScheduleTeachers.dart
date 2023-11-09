@@ -1,57 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_scheduler/View/State/ScheduleTimeModel.dart';
+import 'package:flutter_test_scheduler/State/Models/LessonModel.dart';
+import 'package:flutter_test_scheduler/State/Models/ScheduleTimeModel.dart';
+import 'package:flutter_test_scheduler/State/Models/TeacherModel.dart';
 import 'package:flutter_test_scheduler/blogic/domain/entities/LessonTime.dart';
-import 'package:flutter_test_scheduler/blogic/requests/requesters/LessonRequester.dart';
 import 'package:provider/provider.dart';
 
-import '../../blogic/domain/entities/Lesson.dart';
-import '../../blogic/domain/entities/Teacher.dart';
-import '../../blogic/domain/sorterers/Sorterer.dart';
-import '../../blogic/requests/requesters/TeacherRequester.dart';
+import '../../../blogic/domain/sorterers/Sorterer.dart';
 
 class ScheduleTeachersPage extends StatefulWidget {
   const ScheduleTeachersPage({Key? key}) : super(key: key);
 
   @override
-  _ScheduleTeachersPageState createState() => _ScheduleTeachersPageState();
+  State<ScheduleTeachersPage> createState() => _ScheduleTeachersPageState();
 }
 
 class _ScheduleTeachersPageState extends State<ScheduleTeachersPage> {
-  String selectedTeacher = 'Завозкин С.Ю.';
-  List<String> teacherList = [];
 
   @override
   void initState() {
     super.initState();
-    fetchTeacherList();
   }
 
-  Future<void> fetchTeacherList() async {
-    final teachers = await TeacherRequester().requestTeachers("a");
 
-    List<String> teacherNames = [];
-
-    for (Teacher teacher in teachers) {
-      if (teacher.teacherPatronymic != "unknown" && teacher.teacherSurname != "unknown") {
-        teacherNames.add("${teacher.teacherSurname} ${teacher.teacherName.substring(0, 1)}.${teacher.teacherPatronymic.substring(0, 1)}.");
-      } else {
-        teacherNames.add(teacher.teacherName);
-      }
-    }
-
-    setState(() {
-      teacherList = teacherNames;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final lessonTime = Provider.of<ScheduleTimeModel>(context);
-
+    final teacherModel = Provider.of<TeacherModel>(context);
+    final lessonModel = Provider.of<LessonModel>(context);
     return Scaffold(
       backgroundColor: Colors.white, // Use a white background
       appBar: AppBar(
-        title: const Text('Class Schedule'), // Update the title
+        title: const Text('Расписание преподавателей'), // Update the title
         backgroundColor: Colors.orangeAccent, // Change the app bar color
       ),
       body: SingleChildScrollView( // Scrollable content for smaller screens
@@ -99,13 +79,13 @@ class _ScheduleTeachersPageState extends State<ScheduleTeachersPage> {
                     }).toList(),
                   ),
                   DropdownButton(
-                    value: selectedTeacher,
+                    value: teacherModel.selectedTeacher,
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedTeacher = newValue!;
+                        teacherModel.updateSelectedTeacher(newValue!);
                       });
                     },
-                    items: teacherList.map((teacher) {
+                    items: teacherModel.teachers.map((teacher) {
                       return DropdownMenuItem(
                         value: teacher,
                         child: Text(
@@ -164,35 +144,11 @@ class _ScheduleTeachersPageState extends State<ScheduleTeachersPage> {
                         ),
                         const SizedBox(width: 20),
                         Expanded(
-                          child: FutureBuilder<List<Lesson>>(
-                            future: LessonRequester().requestLessons(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text(
-                                  'Error: ${snapshot.error}',
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                );
-                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Center(
-                                  child: Text(
-                                    'No lessons available for this time period',
-                                    style: TextStyle(fontStyle: FontStyle.italic),
-                                  ),
-                                );
-                              } else {
-                                final lessons = Sorterer().getLessonsForTime(
-                                  Sorterer().getLessonsForEntity(selectedTeacher, snapshot.data!),
-                                  time,
-                                );
-
-                                return Column(
-                                  children: lessons.map((lesson) {
+                          child: Column(
+                                  children: Sorterer().getLessonsForTime(
+                    Sorterer().getLessonsForEntity(teacherModel.selectedTeacher, lessonModel.lessons),
+                    time,
+                    ).map((lesson) {
                                     return Container(
                                       width: 500,
                                       height: 200,
@@ -208,10 +164,7 @@ class _ScheduleTeachersPageState extends State<ScheduleTeachersPage> {
                                       ),
                                     );
                                   }).toList(),
-                                );
-                              }
-                            },
-                          ),
+                                )
                         ),
                       ],
                     );

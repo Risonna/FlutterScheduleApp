@@ -4,7 +4,7 @@ import 'Requester.dart';
 class CabinetRequester extends Requester{
   CabinetRequester();
 
-  Future<List<Cabinet>> requestCabinets(String url) async{
+  Future<List<Cabinet>> requestCabinets() async{
     Requester requester = Requester();
     dynamic objects = await requester.requestObjects("get-all-cabinets");
 

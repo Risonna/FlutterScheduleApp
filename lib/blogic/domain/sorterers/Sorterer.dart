@@ -5,7 +5,7 @@ import '../interfaces/ISorterer.dart';
 class Sorterer implements ISorterer{
 
   @override
-  int Count(String entity) {
+  int countLessons(String entity) {
     // TODO: implement Count
     throw UnimplementedError();
   }
@@ -29,11 +29,13 @@ class Sorterer implements ISorterer{
 
   @override
   String? whatLessonAt(LessonTime lessonTime, String entity, List<Lesson> listOfLessons) {
-    for(Lesson lesson in listOfLessons){
-      if((lesson.teacherName?.toLowerCase() == entity.toLowerCase() || lesson.cabinetName?.toLowerCase() == entity.toLowerCase() || lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
-          lesson.groupName?.toLowerCase() == entity.toLowerCase()) && lesson.lessonTime == lessonTime.lessonTime &&
-          lesson.lessonWeek.toLowerCase() == lessonTime.lessonWeek.toLowerCase() &&lesson.lessonDay.toLowerCase() == lessonTime.lessonDay.toLowerCase()){
-        return lesson.subjectName!;
+    if(isNotFree(lessonTime, entity, listOfLessons)){
+      for(Lesson lesson in listOfLessons){
+        if((lesson.teacherName?.toLowerCase() == entity.toLowerCase() || lesson.cabinetName?.toLowerCase() == entity.toLowerCase() || lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
+            lesson.groupName?.toLowerCase() == entity.toLowerCase()) && lesson.lessonTime == lessonTime.lessonTime &&
+            lesson.lessonWeek.toLowerCase() == lessonTime.lessonWeek.toLowerCase() &&lesson.lessonDay.toLowerCase() == lessonTime.lessonDay.toLowerCase()){
+          return lesson.subjectName!;
+        }
       }
     }
     return null;

@@ -4,7 +4,7 @@ import 'Requester.dart';
 class SubjectRequester extends Requester{
   SubjectRequester();
 
-  Future<List<Subject>> requestSubjects(String url) async{
+  Future<List<Subject>> requestSubjects() async{
       Requester requester = Requester();
       dynamic objects = await requester.requestObjects("get-all-subjects");
 

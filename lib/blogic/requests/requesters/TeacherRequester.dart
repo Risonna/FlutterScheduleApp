@@ -4,7 +4,7 @@ import 'Requester.dart';
 class TeacherRequester extends Requester{
   TeacherRequester();
 
-  Future<List<Teacher>> requestTeachers(String url) async {
+  Future<List<Teacher>> requestTeachers() async {
     Requester requester = Requester();
     dynamic objects = await requester.requestObjects("get-all-teachers");
 

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'ScheduleTeachers.dart';
+import '../../blogic/domain/entities/LessonTime.dart';
+import 'Schedules/ScheduleCabinets.dart';
+import 'Schedules/ScheduleNoLessons.dart';
+import 'Schedules/ScheduleTeachers.dart';
+import 'SelectEntityWidget.dart';
+import 'TimePeriodSelectionWidget.dart';
 
 class NavigationButtonsWidget extends StatelessWidget {
   const NavigationButtonsWidget({super.key});
@@ -9,7 +14,7 @@ class NavigationButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Schedule Options'),
+        title: const Text('Главное меню'),
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
@@ -20,8 +25,8 @@ class NavigationButtonsWidget extends StatelessWidget {
           Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CustomButton('Group Schedule', Colors.deepOrange, null),
-            CustomButton('Teacher Schedule', Colors.deepOrange, () {
+            const CustomButton('Расписание по группам', Colors.deepOrange, null),
+            CustomButton('Расписание преподавателей', Colors.deepOrange, () {
               // Navigate to ScheduleTeachersPage
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const ScheduleTeachersPage(),
@@ -29,11 +34,16 @@ class NavigationButtonsWidget extends StatelessWidget {
             }),
           ],
         ),
-        const Row(
+         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton('Cabinet Schedule', Colors.deepOrange, null),
-            CustomButton('Department Schedule', Colors.deepOrange, null),
+            CustomButton('Расписание аудиторий', Colors.deepOrange, () {
+              // Navigate to ScheduleTeachersPage
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ScheduleCabinetsPage(),
+              ));
+            }),
+            const CustomButton('Расписание кафедр', Colors.deepOrange, null),
           ],
         ),
 
@@ -42,17 +52,22 @@ class NavigationButtonsWidget extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton('Count', Colors.orange, null),
-            CustomButton('Is Free', Colors.orange, null),
-            CustomButton('Is Busy', Colors.orange, null),
+            CustomButton('Подсчёт', Colors.orange, null),
+
           ],
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton('Check Lesson', Colors.orange, null),
-            CustomButton('Check When', Colors.orange, null),
-            CustomButton('No Lesson', Colors.orange, null),
+
+            const CustomButton('Когда будет пара?', Colors.orange, null),
+            CustomButton('Когда нет пар?', Colors.orange, () {
+              // Navigate to ScheduleTeachersPage
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EntitySelectionWidget(),
+              ));
+            }),
           ],
         ),
         ],

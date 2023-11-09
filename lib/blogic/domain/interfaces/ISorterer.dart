@@ -2,7 +2,7 @@ import '../entities/Lesson.dart';
 import '../entities/LessonTime.dart';
 
 abstract class ISorterer{
-  int Count(String entity);
+  int countLessons(String entity);
   bool isFree(LessonTime lessonTime, String entity, List<Lesson> listOfLessons);
   bool isNotFree(LessonTime lessonTime, String entity, List<Lesson> listOfLessons);
   String? whatLessonAt(LessonTime lessonTime, String entity, List<Lesson> listOfLessons);
