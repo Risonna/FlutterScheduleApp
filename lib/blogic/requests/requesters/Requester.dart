@@ -5,9 +5,12 @@ import 'dart:convert';
 class Requester implements IRequester{
 
   String baseUrl = "http://localhost:8080/ScheduleWebApp-1.0-SNAPSHOT/api/get-all-info";
+  String baseUrlAndroid = "http://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/api/get-all-info";
   @override
   Future<dynamic> requestObjects(String endpoint) async {
-    final response = await http.get(Uri.parse('$baseUrl/$endpoint'));
+    final response = await http.get(Uri.parse('$baseUrlAndroid/$endpoint'));
+
+
 
     if (response.statusCode == 200) {
       // Parse the response data and return it as a list of objects

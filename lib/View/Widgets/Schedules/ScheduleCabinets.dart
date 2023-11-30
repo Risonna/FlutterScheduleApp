@@ -7,6 +7,7 @@ import '../../../blogic/domain/sorterers/Sorterer.dart';
 import '../../../State/Models/CabinetModel.dart';
 import '../../../State/Models/LessonModel.dart';
 
+
 class ScheduleCabinetsPage extends StatefulWidget {
   const ScheduleCabinetsPage({Key? key}) : super(key: key);
 
@@ -15,13 +16,16 @@ class ScheduleCabinetsPage extends StatefulWidget {
 }
 
 class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
-
+  
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<CabinetModel>(context, listen: false).fetchCabinets();
+      Provider.of<LessonModel>(context, listen: false).fetchLessons();
+    });
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
     final lessonTime = Provider.of<ScheduleTimeModel>(context);
@@ -58,7 +62,7 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
                         value: day,
                         child: Text(
                           day,
-                          style: TextStyle(color: Colors.deepOrange.shade900), // Change text color
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14), // Change text color
                         ),
                       );
                     }).toList(),
@@ -73,7 +77,7 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
                         value: week,
                         child: Text(
                           week,
-                          style: TextStyle(color: Colors.deepOrange.shade900), // Change text color
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14), // Change text color
                         ),
                       );
                     }).toList(),
@@ -81,16 +85,14 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
                   DropdownButton(
                     value: cabinetModel.selectedCabinet,
                     onChanged: (String? newValue) {
-                      setState(() {
                         cabinetModel.updateSelectedCabinet(newValue!);
-                      });
                     },
                     items: cabinetModel.cabinets.map((cabinet) {
                       return DropdownMenuItem(
                         value: cabinet,
                         child: Text(
                           cabinet,
-                          style: TextStyle(color: Colors.deepOrange.shade900), // Change text color
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14), // Change text color
                         ),
                       );
                     }).toList(),

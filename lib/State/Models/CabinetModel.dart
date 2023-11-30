@@ -10,9 +10,6 @@ class CabinetModel with ChangeNotifier {
   String? _error;
 
   List<String> get cabinets{
-    if(_cabinets.isEmpty){
-      fetchCabinets();
-    }
     return _cabinets;
   }
   bool get isLoading => _isLoading;
@@ -21,14 +18,16 @@ class CabinetModel with ChangeNotifier {
   Future<void> fetchCabinets() async {
     _isLoading = true;
     notifyListeners();
+    List<String> fetchedCabinets = [];
 
     try {
       final cabinetData = await CabinetRequester().requestCabinets();
 
 
       for (Cabinet cabinet in cabinetData) {
-        _cabinets.add(cabinet.cabinetName);
+        fetchedCabinets.add(cabinet.cabinetName);
       }
+      _cabinets = fetchedCabinets;
       _error = null;
     } catch (e) {
       _error = e.toString();

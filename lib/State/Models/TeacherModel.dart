@@ -10,9 +10,6 @@ class TeacherModel with ChangeNotifier {
   String? _error;
 
   List<String> get teachers{
-    if(_teachers.isEmpty){
-      fetchTeachers();
-    }
     return _teachers;
   }
   bool get isLoading => _isLoading;
@@ -24,14 +21,18 @@ class TeacherModel with ChangeNotifier {
 
     try {
       final teacherData = await TeacherRequester().requestTeachers();
+
+      List<String> fetchedTeachers = [];
+
       // Transform data if necessary
       for (Teacher teacher in teacherData) {
         if (teacher.teacherPatronymic != "unknown" && teacher.teacherSurname != "unknown") {
-          _teachers.add("${teacher.teacherSurname} ${teacher.teacherName.substring(0, 1)}.${teacher.teacherPatronymic.substring(0, 1)}.");
+          fetchedTeachers.add("${teacher.teacherSurname} ${teacher.teacherName.substring(0, 1)}.${teacher.teacherPatronymic.substring(0, 1)}.");
         } else {
-          _teachers.add(teacher.teacherName);
+          fetchedTeachers.add(teacher.teacherName);
         }
       }
+      _teachers = fetchedTeachers;
       _error = null;
     } catch (e) {
       _error = e.toString();

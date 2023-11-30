@@ -5,8 +5,7 @@ class CabinetRequester extends Requester{
   CabinetRequester();
 
   Future<List<Cabinet>> requestCabinets() async{
-    Requester requester = Requester();
-    dynamic objects = await requester.requestObjects("get-all-cabinets");
+    dynamic objects = await requestObjects("get-all-cabinets");
 
     List<Cabinet> cabinets = [];
 

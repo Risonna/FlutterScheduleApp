@@ -8,9 +8,6 @@ class LessonModel with ChangeNotifier {
   String? _error;
 
   List<Lesson> get lessons{
-    if(_lessons.isEmpty){
-      fetchLessons();
-    }
     return _lessons;
   }
   bool get isLoading => _isLoading;
@@ -20,12 +17,15 @@ class LessonModel with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    List<Lesson> fetchedLessons = [];
+
     try {
       final lessonData = await LessonRequester().requestLessons();
       // Transform data if necessary
       for (Lesson lesson in lessonData) {
-        _lessons.add(lesson);
+        fetchedLessons.add(lesson);
       }
+      _lessons = fetchedLessons;
       _error = null;
     } catch (e) {
       _error = e.toString();

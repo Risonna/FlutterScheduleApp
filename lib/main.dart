@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_scheduler/State/Models/AdminsTeachersModel.dart';
+import 'package:flutter_test_scheduler/State/Models/AuthorizationModel.dart';
 import 'package:flutter_test_scheduler/State/Models/CabinetModel.dart';
 import 'package:flutter_test_scheduler/State/Models/LessonModel.dart';
 import 'package:flutter_test_scheduler/State/Models/ScheduleTimeModel.dart';
@@ -14,9 +16,11 @@ void main() {
         ChangeNotifierProvider(create: (context) => CabinetModel()),
         ChangeNotifierProvider(create: (context) => ScheduleTimeModel()),
         ChangeNotifierProvider(create: (context) => LessonModel()),
+        ChangeNotifierProvider(create: (context) => AuthorizationModel()),
+        ChangeNotifierProvider(create: (context) => AdminsTeachersModel()),
         // Add other providers here as needed
       ],
-      child: const MaterialApp(
+      child:  MaterialApp(
         home: NavigationButtonsWidget(),
     ),
   ),

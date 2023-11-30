@@ -7,18 +7,13 @@ import 'package:provider/provider.dart';
 
 import '../../../blogic/domain/sorterers/Sorterer.dart';
 
-class ScheduleNoLessonsPage extends StatefulWidget {
-  const ScheduleNoLessonsPage({Key? key}) : super(key: key);
 
-  @override
-  State<ScheduleNoLessonsPage> createState() => _ScheduleNoLessonsPageState();
-}
 
-class _ScheduleNoLessonsPageState extends State<ScheduleNoLessonsPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class ScheduleNoLessonsPage extends StatelessWidget {
+  const ScheduleNoLessonsPage({super.key});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +50,7 @@ class _ScheduleNoLessonsPageState extends State<ScheduleNoLessonsPage> {
                         value: week,
                         child: Text(
                           week,
-                          style: TextStyle(color: Colors.deepOrange.shade900),
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14),
                         ),
                       );
                     }).toList(),
@@ -63,16 +58,14 @@ class _ScheduleNoLessonsPageState extends State<ScheduleNoLessonsPage> {
                   DropdownButton(
                     value: teacherModel.selectedTeacher,
                     onChanged: (String? newValue) {
-                      setState(() {
                         teacherModel.updateSelectedTeacher(newValue!);
-                      });
                     },
                     items: teacherModel.teachers.map((teacher) {
                       return DropdownMenuItem(
                         value: teacher,
                         child: Text(
                           teacher,
-                          style: TextStyle(color: Colors.deepOrange.shade900),
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14),
                         ),
                       );
                     }).toList(),
