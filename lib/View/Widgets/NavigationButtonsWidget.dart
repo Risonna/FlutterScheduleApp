@@ -5,11 +5,18 @@ import 'package:flutter_test_scheduler/View/Widgets/AdminPages/AdminsTeachersPag
 import 'package:flutter_test_scheduler/View/Widgets/AdminPages/DataUpload.dart';
 import 'package:flutter_test_scheduler/View/Widgets/AdminPages/ExcelUploadPage.dart';
 import 'package:flutter_test_scheduler/View/Widgets/Authorization/Login.dart';
+import 'package:flutter_test_scheduler/View/Widgets/AdminPages/CorrectnessCheckingPage.dart';
+import 'package:flutter_test_scheduler/View/Widgets/LessonCount/LessonCountWidgetCabinet.dart';
+import 'package:flutter_test_scheduler/View/Widgets/LessonCount/LessonCountWidgetGroups.dart';
+import 'package:flutter_test_scheduler/View/Widgets/LessonCount/LessonCountWidgetTeachers.dart';
 import 'package:provider/provider.dart';
 
 import 'Authorization/Registration.dart';
 import 'Schedules/ScheduleCabinets.dart';
 import 'Schedules/ScheduleTeachers.dart';
+import 'Schedules/occupation/ScheduleNoLessonsCabinets.dart';
+import 'Schedules/occupation/ScheduleNoLessonsGroups.dart';
+import 'Schedules/occupation/ScheduleNoLessonsTeachers.dart';
 import 'SelectEntityWidget.dart';
 
 class NavigationButtonsWidget extends StatelessWidget {
@@ -56,19 +63,34 @@ class NavigationButtonsWidget extends StatelessWidget {
 
                   // Smaller Buttons
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomButton('Подсчёт', Colors.orange, null),
+                      CustomButton('Подсчёт', Colors.orange, () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => EntitySelectionWidget(
+                            buttons: [
+                              ButtonInfo('Группа', Colors.deepOrange, () => LessonCountWidgetGroup()),
+                              ButtonInfo('Преподаватель', Colors.deepOrange, () => LessonCountWidgetTeacher()),
+                              ButtonInfo('Аудитория', Colors.deepOrange, () => LessonCountWidgetCabinet()),
+                            ],
+                          ),
+                        ));
+                      }),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CustomButton('Когда будет пара?', Colors.orange, null),
-                      CustomButton('Когда нет пар?', Colors.orange, () {
+                      CustomButton('Занятость', Colors.orange, () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EntitySelectionWidget(),
+                          builder: (context) => EntitySelectionWidget(
+                            buttons: [
+                              ButtonInfo('Группа', Colors.deepOrange, () => ScheduleNoLessonsGroupPage()),
+                              ButtonInfo('Преподаватель', Colors.deepOrange, () => ScheduleNoLessonsTeacherPage()),
+                              ButtonInfo('Аудитория', Colors.deepOrange, () => ScheduleNoLessonsCabinetsPage()),
+                            ],
+                          ),
                         ));
                       }),
                     ],
@@ -129,40 +151,76 @@ class NavigationDrawer extends StatelessWidget {
   }
 
   Widget buildHeader(BuildContext context) {
-    return Material(
-      color: Colors.green.shade300,
-      child: InkWell(
-        onTap: () {},
-        child: Container(
-          padding: EdgeInsets.only(
-              top: 24 + MediaQuery
-                  .of(context)
-                  .padding
-                  .top,
-              bottom: 24
-          ),
-          child: const Column(
-            children: [
+    final authorizationModel = Provider.of<AuthorizationModel>(context);
+    if(authorizationModel.token != 'empty') {
+      return Material(
+        color: Colors.green.shade300,
+        child: InkWell(
+          onTap: () {},
+          child: Container(
+            padding: EdgeInsets.only(
+                top: 24 + MediaQuery
+                    .of(context)
+                    .padding
+                    .top,
+                bottom: 24
+            ),
+            child: const Column(
+              children: [
                 CircleAvatar(
                   radius: 52,
                   backgroundImage: NetworkImage(
                       'https://c4.wallpaperflare.com/wallpaper/847/594/457/monogatari-series-oshino-shinobu-wallpaper-preview.jpg'
                   ),
                 ),
-              SizedBox(height: 12),
-              Text(
-                'Shinobu Oshino',
-                style: TextStyle(fontSize: 28, color: Colors.white),
-              ),
-              Text(
-                'Shinobu@gmail.com',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              )
-            ],
+                SizedBox(height: 12),
+                Text(
+                  'Shinobu Oshino',
+                  style: TextStyle(fontSize: 28, color: Colors.white),
+                ),
+                Text(
+                  'Shinobu@gmail.com',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
+    else{
+      return Material(
+        color: Colors.green.shade300,
+        child: InkWell(
+          onTap: () {},
+          child: Container(
+            padding: EdgeInsets.only(
+                top: 24 + MediaQuery
+                    .of(context)
+                    .padding
+                    .top,
+                bottom: 24
+            ),
+            child: const Column(
+              children: [
+                CircleAvatar(
+                  radius: 52,
+                  backgroundImage: NetworkImage(
+                      'https://cdn0.iconfinder.com/data/icons/pixel-perfect-at-24px-volume-6/24/2131-512.png'
+                  ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'Неавторизованный пользователь',
+                  style: TextStyle(fontSize: 28, color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    }
   }
 
   Widget buildMenuItems(BuildContext context) {
@@ -241,7 +299,7 @@ class NavigationDrawer extends StatelessWidget {
               title: const Text('Проверка правильности расписания'),
               onTap: () =>
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => NavigationButtonsWidget())),
+                      builder: (context) => ScheduleCorrectnessWidget())),
             ),
             ListTile(
               leading: const Icon(Icons.add_box_outlined),
@@ -276,4 +334,3 @@ class NavigationDrawer extends StatelessWidget {
       );
     }
     }
-}

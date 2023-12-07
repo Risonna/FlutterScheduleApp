@@ -21,8 +21,12 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<CabinetModel>(context, listen: false).fetchCabinets();
-      Provider.of<LessonModel>(context, listen: false).fetchLessons();
+      if(Provider.of<CabinetModel>(context, listen: false).cabinets.isEmpty) {
+        Provider.of<CabinetModel>(context, listen: false).fetchCabinets();
+      }
+      if(Provider.of<LessonModel>(context, listen: false).lessons.isEmpty) {
+        Provider.of<LessonModel>(context, listen: false).fetchLessons();
+      }
     });
   }
   
@@ -35,22 +39,22 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
     return Scaffold(
       backgroundColor: Colors.white, // Use a white background
       appBar: AppBar(
-        title: const Text('Расписание аудиторий'), // Update the title
-        backgroundColor: Colors.orangeAccent, // Change the app bar color
+        title: const Text('Расписание аудиторий'),
+        backgroundColor: Colors.orangeAccent,
       ),
       body: SingleChildScrollView( // Scrollable content for smaller screens
         child: Column(
           children: [
             const SizedBox(height: 16.0),
-            Container( // Use a container for better structure
+            Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.orange.shade100, // Add a colored background
+                color: Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(16.0),
               ),
               margin: const EdgeInsets.all(16.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Distribute items evenly
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   DropdownButton(
                     value: lessonTime.selectedDay,
@@ -62,7 +66,7 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
                         value: day,
                         child: Text(
                           day,
-                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14), // Change text color
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 13),
                         ),
                       );
                     }).toList(),
@@ -77,7 +81,7 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
                         value: week,
                         child: Text(
                           week,
-                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14), // Change text color
+                          style: TextStyle(color: Colors.deepOrange.shade900, fontSize: 14),
                         ),
                       );
                     }).toList(),
@@ -104,7 +108,7 @@ class _ScheduleCabinetsPageState extends State<ScheduleCabinetsPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: SizedBox(
-                width: 1000, // Set the desired width
+                width: 1000,
                 child: Card(
                   elevation: 8,
                   margin: const EdgeInsets.all(16.0),

@@ -38,6 +38,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///C:/Users/rison/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/Users/rison/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
@@ -224,6 +230,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "web_socket_channel",
+      "rootUri": "file:///C:/Users/rison/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "win32",
       "rootUri": "file:///C:/Users/rison/AppData/Local/Pub/Cache/hosted/pub.dev/win32-2.6.1",
       "packageUri": "lib/",
@@ -236,7 +248,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-11-30T14:39:09.666866Z",
+  "generated": "2023-12-07T17:49:25.802283Z",
   "generator": "pub",
   "generatorVersion": "3.2.1"
 }

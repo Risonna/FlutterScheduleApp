@@ -5,14 +5,30 @@ import 'package:flutter_test_scheduler/State/Models/TeacherModel.dart';
 import 'package:flutter_test_scheduler/blogic/domain/entities/LessonTime.dart';
 import 'package:provider/provider.dart';
 
-import '../../../blogic/domain/sorterers/Sorterer.dart';
+import '../../../../blogic/domain/sorterers/Sorterer.dart';
 
 
+class ScheduleNoLessonsTeacherPage extends StatefulWidget {
+  ScheduleNoLessonsTeacherPage({Key? key}) : super(key: key);
 
-class ScheduleNoLessonsPage extends StatelessWidget {
-  const ScheduleNoLessonsPage({super.key});
+  @override
+  State<ScheduleNoLessonsTeacherPage> createState() => _ScheduleNoLessonsState();
+}
 
+class _ScheduleNoLessonsState extends State<ScheduleNoLessonsTeacherPage> {
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if(Provider.of<TeacherModel>(context, listen: false).teachers.isEmpty) {
+        Provider.of<TeacherModel>(context, listen: false).fetchTeachers();
+      }
+      if(Provider.of<LessonModel>(context, listen: false).lessons.isEmpty) {
+        Provider.of<LessonModel>(context, listen: false).fetchLessons();
+      }
+    });
+  }
 
 
   @override

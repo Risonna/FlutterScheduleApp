@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test_scheduler/State/Models/AuthorizationModel.dart';
+import 'package:flutter_test_scheduler/State/Models/WebSocketModel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../State/Models/AdminsTeachersModel.dart';
@@ -85,7 +88,7 @@ class _AddUserForm extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
             ),
-            child: const Text('Add'),
+            child: const Text('Добавить'),
           ),
 
         ],
@@ -100,12 +103,44 @@ class _UserTable extends StatefulWidget {
 }
 
 class _UserTableState extends State<_UserTable> {
+  late StreamSubscription<dynamic> _streamSubscription;
+
   @override
   void initState() {
     super.initState();
+    final adminsTeachersModel = Provider.of<AdminsTeachersModel>(context, listen: false);
+    final webSocketProvider = Provider.of<WebSocketModel>(context, listen: false);
+
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<AdminsTeachersModel>(context, listen: false).fetchAdminsTeachers();
+      if (adminsTeachersModel.adminsTeachers.isEmpty) {
+        adminsTeachersModel.fetchAdminsTeachers();
+      }
+      webSocketProvider.connect('ws://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/websocket/entity');
+      _streamSubscription = webSocketProvider.channel!.stream.listen(
+            (message) {
+          // Handle incoming messages
+          if (message.toString() == 'refetchAdminsTeachers') {
+            print('message received, the message is ' + message.toString().toLowerCase());
+            adminsTeachersModel.fetchAdminsTeachers();
+          }
+        },
+        onDone: () {
+          // Handle WebSocket close
+          print('WebSocket closed');
+        },
+        onError: (error) {
+          // Handle WebSocket errors
+          print('WebSocket error: $error');
+        },
+      );
     });
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel(); // Cancel the stream subscription when disposing
+    Provider.of<WebSocketModel>(context, listen: false).disconnect();
+    super.dispose();
   }
 
   @override
@@ -140,8 +175,8 @@ class _UserTableState extends State<_UserTable> {
           const SizedBox(height: 10),
           DataTable(
             columns: const [
-              DataColumn(label: Text('Username', style: TextStyle(color: Colors.white))),
-              DataColumn(label: Text('Actions', style: TextStyle(color: Colors.white))),
+              DataColumn(label: Text('Имя пользователя', style: TextStyle(color: Colors.white))),
+              DataColumn(label: Text('Действия', style: TextStyle(color: Colors.white))),
             ],
             rows: adminsTeachersModel.adminsTeachers.map((user) {
               return DataRow(
@@ -166,6 +201,7 @@ class _UserTableState extends State<_UserTable> {
     );
   }
 }
+
 
 
 

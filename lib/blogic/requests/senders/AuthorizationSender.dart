@@ -18,7 +18,6 @@ class AuthorizationSender implements IAuthorizationSender{
             body: json.encode(user));
 
         if (response.statusCode == 200) {
-          // Assuming `response` is the HTTP response
           final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
           // Check if the response has a 'token' field
@@ -39,7 +38,6 @@ class AuthorizationSender implements IAuthorizationSender{
             body: json.encode(user.toJsonRegister()));
 
         if (response.statusCode == 200) {
-          // Assuming `response` is the HTTP response
           final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
           // Check if the response has a 'token' field

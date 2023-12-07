@@ -5,9 +5,19 @@ import '../interfaces/ISorterer.dart';
 class Sorterer implements ISorterer{
 
   @override
-  int countLessons(String entity) {
-    // TODO: implement Count
-    throw UnimplementedError();
+  int countLessons(String entity, List<Lesson> listOfLessons) {
+    int count = 0;
+
+    for (Lesson lesson in listOfLessons) {
+      if ((lesson.teacherName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.cabinetName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.subjectName?.toLowerCase() == entity.toLowerCase() ||
+          lesson.groupName?.toLowerCase() == entity.toLowerCase())) {
+        count++;
+      }
+    }
+
+    return count;
   }
 
   @override

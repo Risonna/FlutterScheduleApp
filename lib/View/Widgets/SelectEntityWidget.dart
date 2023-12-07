@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+
 import 'NavigationButtonsWidget.dart';
-import 'Schedules/ScheduleNoLessons.dart';
+
 
 class EntitySelectionWidget extends StatelessWidget {
+  final List<ButtonInfo> buttons;
 
-  const EntitySelectionWidget({super.key});
+  const EntitySelectionWidget({Key? key, required this.buttons}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +19,27 @@ class EntitySelectionWidget extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomButton('Группа', Colors.deepOrange, null),
-            CustomButton('Преподаватель', Colors.deepOrange,() {
-              // Navigate to ScheduleTeachersPage
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ScheduleNoLessonsPage(),
-              ));
-            } ),
-            CustomButton('Аудитория', Colors.deepOrange, null),
-          ],
+          children: buttons.map((buttonInfo) {
+            return CustomButton(
+              buttonInfo.label,
+              buttonInfo.color,
+                  () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => buttonInfo.destination(),
+                ));
+              },
+            );
+          }).toList(),
         ),
       ),
     );
   }
+}
+
+class ButtonInfo {
+  final String label;
+  final Color color;
+  final Widget Function() destination;
+
+  ButtonInfo(this.label, this.color, this.destination);
 }

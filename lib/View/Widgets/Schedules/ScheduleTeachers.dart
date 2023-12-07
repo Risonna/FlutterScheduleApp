@@ -21,8 +21,12 @@ class _ScheduleTeachersPageState extends State<ScheduleTeachersPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<TeacherModel>(context, listen: false).fetchTeachers();
-      Provider.of<LessonModel>(context, listen: false).fetchLessons();
+      if(Provider.of<TeacherModel>(context, listen: false).teachers.isEmpty) {
+        Provider.of<TeacherModel>(context, listen: false).fetchTeachers();
+      }
+      if(Provider.of<LessonModel>(context, listen: false).lessons.isEmpty) {
+        Provider.of<LessonModel>(context, listen: false).fetchLessons();
+      }
     });
   }
 
