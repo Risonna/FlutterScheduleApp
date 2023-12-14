@@ -1,33 +1,10 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:provider/provider.dart';
 
-class ExcelUploadPage extends StatefulWidget {
-  const ExcelUploadPage({super.key});
+import '../../../State/Models/FileUploadModel.dart';
 
-  @override
-  State<ExcelUploadPage> createState() => _ExcelUploadPageState();
-}
-
-class _ExcelUploadPageState extends State<ExcelUploadPage> {
-  String? _filePath;
-  void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls'],
-    );
-
-    if (result != null && result.files.isNotEmpty) {
-      final fileBytes = result.files.first.bytes;
-      setState(() {
-        _filePath = result.files.first.name;
-      });
-
-
-    }
-
-  }
+class ExcelUploadPage extends StatelessWidget {
+  const ExcelUploadPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +14,41 @@ class _ExcelUploadPageState extends State<ExcelUploadPage> {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _pickFile,
-              child: const Text('Выберите файл'),
-            ),
-            const SizedBox(height: 16),
-            if (_filePath != null)
-              Text(
-                'Выбранный файл: $_filePath',
-                style: const TextStyle(fontSize: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Provider.of<FileUploadModel>(context, listen: false).pickAndUploadFile();
+                },
+                child: const Text('Выберите файл'),
               ),
-          ],
+              const SizedBox(height: 16),
+              Consumer<FileUploadModel>(
+                builder: (context, fileUploadModel, child) {
+                  return Column(
+                    children: [
+                      if (fileUploadModel.isLoading)
+                        const CircularProgressIndicator()
+                      else if(fileUploadModel.filePath.isNotEmpty)
+                        Column(
+                          children: [
+                            const Icon(Icons.check_circle, color: Colors.green, size: 32),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Файл ${fileUploadModel.filePath} был успешно загружен',
+                              style: const TextStyle(fontSize: 16, color: Colors.green),
+                            ),
+                          ],
+                        )
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

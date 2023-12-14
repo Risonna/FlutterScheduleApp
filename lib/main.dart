@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_scheduler/State/Models/AdminsTeachersModel.dart';
 import 'package:flutter_test_scheduler/State/Models/AuthorizationModel.dart';
 import 'package:flutter_test_scheduler/State/Models/CabinetModel.dart';
+import 'package:flutter_test_scheduler/State/Models/FileUploadModel.dart';
 import 'package:flutter_test_scheduler/State/Models/GroupModel.dart';
 import 'package:flutter_test_scheduler/State/Models/LessonModel.dart';
 import 'package:flutter_test_scheduler/State/Models/ScheduleTimeModel.dart';
@@ -22,6 +23,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => AdminsTeachersModel()),
         ChangeNotifierProvider(create: (context) => GroupModel()),
         ChangeNotifierProvider(create: (context) => WebSocketModel()),
+        ChangeNotifierProvider(create: (context) => FileUploadModel()),
       ],
       child:  MaterialApp(
         home: NavigationButtonsWidget(),

@@ -4,31 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7de35d2-896f-41c5-8dbc-047da3bcc89d" name="Changes" comment="Added authorization and additional pages which show up if you have admin role(a claim from token received from server)">
-      <change afterPath="$PROJECT_DIR$/lib/State/Models/GroupModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/State/Models/WebSocketModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/AdminPages/CorrectnessCheckingPage.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/LessonCount/LessonCountWidgetCabinet.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/LessonCount/LessonCountWidgetGroups.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/LessonCount/LessonCountWidgetTeachers.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/Schedules/occupation/ScheduleNoLessonsCabinets.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/View/Widgets/Schedules/occupation/ScheduleNoLessonsGroups.dart" afterDir="false" />
+    <list default="true" id="d7de35d2-896f-41c5-8dbc-047da3bcc89d" name="Changes" comment="-Added following widgets: one counts lessons for an entity, the other lets a user see entity's occupation.&#10;-Added widget to check schedule correctness.&#10;-Added websocket as a model and currently am using it on AdminsTeachers page&#10;-Changed side-menu, so when a user is not logged in, it says not logged in.&#10;-Fixed refetching of data after any widget's initial load.">
+      <change afterPath="$PROJECT_DIR$/lib/State/Models/FileUploadModel.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/View/Components/NavigationDrawer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/blogic/requests/requesters/FileUploadRequester.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/businessLogic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/businessLogic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/State/Models/AuthorizationModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/State/Models/AuthorizationModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/State/Models/WebSocketModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/State/Models/WebSocketModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/Widgets/AdminPages/AdminsTeachersPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/AdminPages/AdminsTeachersPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/AdminPages/ExcelUploadPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/AdminPages/ExcelUploadPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/Widgets/NavigationButtonsWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/NavigationButtonsWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/Schedules/ScheduleCabinets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/Schedules/ScheduleCabinets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/Schedules/ScheduleNoLessons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/Schedules/occupation/ScheduleNoLessonsTeachers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/Schedules/SchedulePage.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/Schedules/ScheduleTeachers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/Schedules/ScheduleTeachers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Widgets/SelectEntityWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/Widgets/SelectEntityWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blogic/domain/interfaces/ISorterer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blogic/domain/interfaces/ISorterer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blogic/domain/sorterers/Sorterer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blogic/domain/sorterers/Sorterer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/blogic/requests/senders/AuthorizationSender.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blogic/requests/senders/AuthorizationSender.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,33 +58,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rison/AppData/Local/Android/Sdk&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.40415704&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "flutter.performance.tool.window.visible": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/rison/AppData/Local/Android/Sdk",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.40415704",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\programmingNew\projectsIntellij\FlutterScheduleApp\tree\flutter\lib\assets" />
@@ -152,7 +151,12 @@
       <workItem from="1701944718545" duration="16357000" />
       <workItem from="1701969837056" duration="71000" />
       <workItem from="1701969995363" duration="66000" />
-      <workItem from="1701970234168" duration="3085000" />
+      <workItem from="1701970234168" duration="3234000" />
+      <workItem from="1702363466717" duration="177000" />
+      <workItem from="1702545089998" duration="5586000" />
+      <workItem from="1702553190612" duration="325000" />
+      <workItem from="1702553521607" duration="509000" />
+      <workItem from="1702554036500" duration="9702000" />
     </task>
     <task id="LOCAL-00001" summary="Added business logic to get lessons/teachers/cabinets/groups/subjects from API and to do some computations to decide whether an &quot;entity&quot; is free/has lesson and etc...">
       <created>1695057670334</created>
@@ -176,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701370982025</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="-Added following widgets: one counts lessons for an entity, the other lets a user see entity's occupation.&#10;-Added widget to check schedule correctness.&#10;-Added websocket as a model and currently am using it on AdminsTeachers page&#10;-Changed side-menu, so when a user is not logged in, it says not logged in.&#10;-Fixed refetching of data after any widget's initial load.">
+      <option name="closed" value="true" />
+      <created>1701973453768</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701973453768</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,7 +209,8 @@
     <MESSAGE value="Added business logic to get lessons/teachers/cabinets/groups/subjects from API and to do some computations to decide whether an &quot;entity&quot; is free/has lesson and etc..." />
     <MESSAGE value="Changed all Sorterer's methods to work with .toLowerCase()'d fields instead.&#10;Added hashCode and == overrides to LessonTime and Lesson entity classes.&#10;Changed Storterer's whenNoLesson() method to work correctly." />
     <MESSAGE value="Added authorization and additional pages which show up if you have admin role(a claim from token received from server)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added authorization and additional pages which show up if you have admin role(a claim from token received from server)" />
+    <MESSAGE value="-Added following widgets: one counts lessons for an entity, the other lets a user see entity's occupation.&#10;-Added widget to check schedule correctness.&#10;-Added websocket as a model and currently am using it on AdminsTeachers page&#10;-Changed side-menu, so when a user is not logged in, it says not logged in.&#10;-Fixed refetching of data after any widget's initial load." />
+    <option name="LAST_COMMIT_MESSAGE" value="-Added following widgets: one counts lessons for an entity, the other lets a user see entity's occupation.&#10;-Added widget to check schedule correctness.&#10;-Added websocket as a model and currently am using it on AdminsTeachers page&#10;-Changed side-menu, so when a user is not logged in, it says not logged in.&#10;-Fixed refetching of data after any widget's initial load." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

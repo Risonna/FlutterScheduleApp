@@ -13,6 +13,7 @@ class AuthorizationSender implements IAuthorizationSender{
     try {
       print('Request Payload: ${json.encode(user)}');
       if(endpoint =='login') {
+        print('Request Payload for login is ${user.toJson()}');
         final response = await http.post(Uri.parse('$baseUrlAndroid/$endpoint'),
             headers: {'Content-Type': 'application/json'},
             body: json.encode(user));
@@ -33,21 +34,15 @@ class AuthorizationSender implements IAuthorizationSender{
         }
       }
       else if(endpoint == 'register'){
+        print('Request Payload For registration is ${user.toJsonRegister()}');
         final response = await http.post(Uri.parse('$baseUrlAndroid/$endpoint'),
             headers: {'Content-Type': 'application/json'},
             body: json.encode(user.toJsonRegister()));
 
         if (response.statusCode == 200) {
-          final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-          // Check if the response has a 'token' field
-          if (jsonResponse.containsKey('token')) {
-            return jsonResponse['token'];
-          } else {
-            throw Exception('Invalid response format: $jsonResponse');
-          }
+          print('Returned response 200');
         } else {
-          // Handle error cases here, for example:
           print('HTTP request failed with status ${response.statusCode}');
           print('Response body: ${response.body}');
           throw Exception('Failed to send user');

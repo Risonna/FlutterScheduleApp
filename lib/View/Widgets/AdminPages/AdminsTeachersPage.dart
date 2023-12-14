@@ -103,7 +103,6 @@ class _UserTable extends StatefulWidget {
 }
 
 class _UserTableState extends State<_UserTable> {
-  late StreamSubscription<dynamic> _streamSubscription;
 
   @override
   void initState() {
@@ -115,30 +114,13 @@ class _UserTableState extends State<_UserTable> {
       if (adminsTeachersModel.adminsTeachers.isEmpty) {
         adminsTeachersModel.fetchAdminsTeachers();
       }
-      webSocketProvider.connect('ws://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/websocket/entity');
-      _streamSubscription = webSocketProvider.channel!.stream.listen(
-            (message) {
-          // Handle incoming messages
-          if (message.toString() == 'refetchAdminsTeachers') {
-            print('message received, the message is ' + message.toString().toLowerCase());
-            adminsTeachersModel.fetchAdminsTeachers();
-          }
-        },
-        onDone: () {
-          // Handle WebSocket close
-          print('WebSocket closed');
-        },
-        onError: (error) {
-          // Handle WebSocket errors
-          print('WebSocket error: $error');
-        },
-      );
+      webSocketProvider.connect(context);
     });
   }
 
+
   @override
   void dispose() {
-    _streamSubscription.cancel(); // Cancel the stream subscription when disposing
     Provider.of<WebSocketModel>(context, listen: false).disconnect();
     super.dispose();
   }

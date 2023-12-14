@@ -10,6 +10,7 @@ class AuthorizationModel with ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   String role = 'guest';
+  String _username = '';
 
   String get token{
     print(_token);
@@ -18,6 +19,11 @@ class AuthorizationModel with ChangeNotifier {
 
   bool get isLoading => _isLoading;
   String? get error => _error;
+  String get username => _username;
+
+  void setUsername(String username){
+    this._username = username;
+  }
 
   Future<void> loginUser(User user) async {
     _isLoading = true;
@@ -39,6 +45,7 @@ class AuthorizationModel with ChangeNotifier {
       _error = e.toString();
     } finally {
       _isLoading = false;
+      setUsername(user.username);
       notifyListeners();
     }
   }
