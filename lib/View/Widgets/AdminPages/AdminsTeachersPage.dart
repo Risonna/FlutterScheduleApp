@@ -18,6 +18,15 @@ class AdminsTeachersPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Изменение администраторов-преподавателей'),
           backgroundColor: Colors.orangeAccent,
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black54,
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(

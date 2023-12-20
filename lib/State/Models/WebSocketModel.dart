@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test_scheduler/State/Models/AdminsTeachersModel.dart';
+import 'package:flutter_test_scheduler/blogic/requests/globalUrl.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -12,7 +13,7 @@ class WebSocketModel with ChangeNotifier {
   WebSocketChannel? get channel => _channel;
 
   void connect(BuildContext context) {
-    _channel = WebSocketChannel.connect(Uri.parse('ws://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/websocket/entity'));
+    _channel = WebSocketChannel.connect(Uri.parse('ws://${globalUrl}websocket/entity'));
     _streamSubscription = _channel!.stream.listen(
           (message) {
         handleMessage(message, context);

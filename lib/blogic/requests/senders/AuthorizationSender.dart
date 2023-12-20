@@ -1,20 +1,19 @@
 import 'dart:convert';
 
+import 'package:flutter_test_scheduler/blogic/requests/globalUrl.dart';
 import 'package:flutter_test_scheduler/blogic/requests/interfaces/IAuthorizationSender.dart';
 import 'package:http/http.dart' as http;
 
 import '../../domain/entities/User.dart';
 
 class AuthorizationSender implements IAuthorizationSender{
-  String baseUrl = "http://localhost:8080/ScheduleWebApp-1.0-SNAPSHOT/api/auth";
-  String baseUrlAndroid = "http://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/api/auth";
   @override
   sendUser(User user, String endpoint) async {
     try {
       print('Request Payload: ${json.encode(user)}');
       if(endpoint =='login') {
         print('Request Payload for login is ${user.toJson()}');
-        final response = await http.post(Uri.parse('$baseUrlAndroid/$endpoint'),
+        final response = await http.post(Uri.parse('http://${globalUrl}api/auth/$endpoint'),
             headers: {'Content-Type': 'application/json'},
             body: json.encode(user));
 
@@ -35,7 +34,7 @@ class AuthorizationSender implements IAuthorizationSender{
       }
       else if(endpoint == 'register'){
         print('Request Payload For registration is ${user.toJsonRegister()}');
-        final response = await http.post(Uri.parse('$baseUrlAndroid/$endpoint'),
+        final response = await http.post(Uri.parse('http://${globalUrl}api/auth/$endpoint'),
             headers: {'Content-Type': 'application/json'},
             body: json.encode(user.toJsonRegister()));
 

@@ -1,16 +1,14 @@
 import 'dart:convert';
+import 'package:flutter_test_scheduler/blogic/requests/globalUrl.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_test_scheduler/blogic/requests/interfaces/IAdminTeacherSender.dart';
 
 class AdminTeacherSender implements IAdminTeacherSender {
-  String baseUrl = "http://localhost:8080/ScheduleWebApp-1.0-SNAPSHOT/api/get-all-info";
-  String baseUrlAndroid = "http://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/api/get-all-info";
-  String baseUrlAndroidAdminsTeachers = "http://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/api/adminTeacher";
 
 
   @override
   Future<List<String>> requestAdminsTeachers() async {
-    final url = Uri.parse('$baseUrlAndroid/get-all-admins-teachers');
+    final url = Uri.parse('http://${globalUrl}api/get-all-info/get-all-admins-teachers');
 
     try {
       final response = await http.get(url);
@@ -38,7 +36,7 @@ class AdminTeacherSender implements IAdminTeacherSender {
     try{
       if(endpoint == 'addTeacher'){
         print('token before sending is ' + token);
-        final response = await http.post(Uri.parse('$baseUrlAndroidAdminsTeachers/$endpoint'),
+        final response = await http.post(Uri.parse('http://${globalUrl}api/adminTeacher/$endpoint'),
             headers: {'Content-Type': 'application/json',
                       'Authorization' : token},
             body: username);
@@ -53,7 +51,7 @@ class AdminTeacherSender implements IAdminTeacherSender {
       else{
         print('token before sending is ' + token);
 
-        final response = await http.delete(Uri.parse('$baseUrlAndroidAdminsTeachers/$endpoint'),
+        final response = await http.delete(Uri.parse('http://${globalUrl}api/adminTeacher/$endpoint'),
             headers: {'Authorization' : token});
         if (response.statusCode == 200) {
           print('all ok');

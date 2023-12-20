@@ -176,13 +176,13 @@ Widget buildMenuItems(BuildContext context) {
             leading: const Icon(Icons.calendar_month),
             title: const Text('Проверка правильности расписания'),
             onTap: () =>
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ScheduleCorrectnessWidget())),
           ),
           ListTile(
             leading: const Icon(Icons.add_box_outlined),
             title: const Text('Выдать преподавателям роль'),
-            onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => AdminsTeachersPage())),
           ),
         ],

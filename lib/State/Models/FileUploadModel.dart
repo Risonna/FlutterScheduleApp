@@ -26,35 +26,54 @@ class FileUploadModel with ChangeNotifier {
   }
 
   Future<void> pickAndUploadFile() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.storage,
-      Permission.manageExternalStorage,
-    ].request();
+    if(Platform.isAndroid) {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+        Permission.manageExternalStorage,
+      ].request();
 
-    var storage = statuses[Permission.storage];
-    var manageExternalStorage = statuses[Permission.manageExternalStorage];
-    if (storage!.isGranted || manageExternalStorage!.isGranted) {
+      var storage = statuses[Permission.storage];
+      var manageExternalStorage = statuses[Permission.manageExternalStorage];
+      if (storage!.isGranted || manageExternalStorage!.isGranted) {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['xlsx', 'xls'],
+        );
+
+
+        if (result != null && result.files.isNotEmpty) {
+          final selectedFile = result.files.first;
+          if (selectedFile != null) {
+            setFilePath(selectedFile.name);
+            if (selectedFile.bytes != null) {
+              await _uploadFile(selectedFile.bytes!, selectedFile.name);
+            } else if (selectedFile.path != null) {
+              final fileBytes = await File(selectedFile.path!).readAsBytes();
+              await _uploadFile(fileBytes, selectedFile.name);
+            } else {
+              print('File bytes and path are both null');
+            }
+          } else {
+            print('Selected file is null');
+          }
+        }
+      }
+    }
+    else{
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['xlsx', 'xls'],
       );
-
-
-
-      if (result != null && result.files.isNotEmpty) {
-        final selectedFile = result.files.first;
-        if (selectedFile != null) {
-          setFilePath(selectedFile.name);
-          if (selectedFile.bytes != null) {
-            await _uploadFile(selectedFile.bytes!, selectedFile.name);
-          } else if (selectedFile.path != null) {
-            final fileBytes = await File(selectedFile.path!).readAsBytes();
-            await _uploadFile(fileBytes, selectedFile.name);
-          } else {
-            print('File bytes and path are both null');
-          }
+      final selectedFile = result?.files.first;
+      if (selectedFile != null) {
+        setFilePath(selectedFile.name);
+        if (selectedFile.bytes != null) {
+          await _uploadFile(selectedFile.bytes!, selectedFile.name);
+        } else if (selectedFile.path != null) {
+          final fileBytes = await File(selectedFile.path!).readAsBytes();
+          await _uploadFile(fileBytes, selectedFile.name);
         } else {
-          print('Selected file is null');
+          print('File bytes and path are both null');
         }
       }
     }

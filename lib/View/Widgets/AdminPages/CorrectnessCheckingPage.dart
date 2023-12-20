@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_scheduler/blogic/requests/globalUrl.dart';
 import 'package:http/http.dart' as http;
 
 class ScheduleCorrectnessWidget extends StatefulWidget {
@@ -17,7 +18,7 @@ class _ScheduleCorrectnessWidgetState extends State<ScheduleCorrectnessWidget> {
   }
 
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8080/ScheduleWebApp-1.0-SNAPSHOT/api/correctnessSchedule/checkCorrectness'));
+    final response = await http.get(Uri.parse('http://${globalUrl}api/correctnessSchedule/checkCorrectness'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
@@ -33,7 +34,16 @@ class _ScheduleCorrectnessWidgetState extends State<ScheduleCorrectnessWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Schedule Correctness'),
+        title: Text('Правильность расписания'),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black54,
+          ),
+        ),
       ),
       body: correctnessList.isEmpty // Check if the list is empty before building
           ? Center(
